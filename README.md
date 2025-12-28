@@ -1,4 +1,4 @@
-# Sterownik Oświetlenia LED (ESP32)
+# Sterownik Oświetlenia LED (ESP32) v1.0.0
 
 **Temat: terownik oświetlenia (PWM + sceny)** 
 
