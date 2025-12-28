@@ -11,6 +11,8 @@ void main_control_loop(void *pvParameters) {
     while (1) {
         // Aktualizacja stanu.
         fsm_update();
+        // Sprawdzanie czy jest jakaś komenda do przetworzenia.
+        uart_protocol_tick();
 
         // Odczekanie 100ms.
         vTaskDelay(pdMS_TO_TICKS(100));
