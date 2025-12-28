@@ -1,7 +1,7 @@
 {
     "version":            "1.2",
     "project_name":       "projekt_niskopoziom",
-    "project_version":    "1",
+    "project_version":    "3496400-dirty",
     "project_path":       "C:/Users/Alicja/Desktop/projekt_niskopoziom/project-root",
     "idf_path":           "C:/Espressif/v5.5.1/esp-idf",
     "build_dir":          "C:/Users/Alicja/Desktop/projekt_niskopoziom/project-root/build",
