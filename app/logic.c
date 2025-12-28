@@ -1,6 +1,7 @@
 #include "logic.h"
 #include "led_pwm.h"
 #include <stdio.h>
+#include <string.h>
 
 static float current_brightness = 0.0f;
 static int target_brightness = 0;
@@ -61,6 +62,22 @@ void logic_update(void) {
         if (current_int % 10 == 0 || current_int == target_brightness) {
             printf("LOGIC: Jasność LED: %d%% (Cel: %d%%)\n", current_int, target_brightness);
         }
+    }
+}
+
+// Ustaw scenę.
+void logic_set_scene(const char* scene_name) {
+    if (strcmp(scene_name, "SUNSET") == 0) {
+        logic_set_target(50);
+        printf("LOGIC: Uruchomiono scene SUNSET (50%%)\n");
+    } 
+    else if (strcmp(scene_name, "NIGHT") == 0) {
+        logic_set_target(0);
+        printf("LOGIC: Uruchomiono scene NIGHT (0%%)\n");
+    }
+    else if (strcmp(scene_name, "DAY") == 0) {
+        logic_set_target(100);
+        printf("LOGIC: Uruchomiono scene DAY (100%%)\n");
     }
 }
 

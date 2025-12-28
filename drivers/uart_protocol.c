@@ -60,9 +60,14 @@ void process_command(char* line) {
         printf("Jasnosc:     %d%%\n", logic_get_current_level());
         printf("-------------------\n");
     }
+    else if (strncmp(line, "SCENE:", 6) == 0) {
+        char* scene = &line[6];
+        logic_set_scene(scene);
+        stats.commands_received++;
+    }
     else {
         stats.errors_count++;
-        printf("\nUART ERROR: Nieznana komenda [%s]. Dostepne: ON, OFF, SET:val, STATS\n", line);
+        printf("\nUART ERROR: Nieznana komenda [%s]. Dostepne: ON, OFF, SET:val, STATS, SCENE:DAY/SUNSET/NIGHT\n", line);
     }
 }
 
