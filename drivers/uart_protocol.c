@@ -1,0 +1,1 @@
+void uart_protocol_init(void) { /* na razie puste */ }
