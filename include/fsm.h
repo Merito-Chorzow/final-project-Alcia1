@@ -10,5 +10,6 @@ typedef enum {
 
 void fsm_init(void);
 void fsm_update(void);
+const char* fsm_get_state_name(void);
 
 #endif

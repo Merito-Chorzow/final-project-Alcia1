@@ -1,6 +1,7 @@
 #include "uart_protocol.h"
 #include "logic.h"
 #include "driver/uart.h"
+#include "fsm.h"
 #include <string.h>
 #include <stdio.h>
 
@@ -49,8 +50,15 @@ void process_command(char* line) {
         }
     }
     else if (strcmp(line, "STATS") == 0) {
-        printf("\nTELEMETRIA: Komendy: %lu, Bledy: %lu, Aktualna Jasnosc: %d%%\n", 
-                stats.commands_received, stats.errors_count, logic_get_current_level());
+        logic_metrics_t lm = logic_get_metrics();
+        printf("\n--- TELEMETRY ---\n");
+        printf("Stan: [ %s ]\n", fsm_get_state_name());
+        printf("Uptime:      %lu cykli (%lu. %lu s)\n", lm.uptime_cycles, lm.uptime_cycles / 10, lm.uptime_cycles % 10);
+        printf("Komendy:     %lu odebranych\n", stats.commands_received);
+        printf("Bledy UART:  %lu (Overflow/Unknown)\n", stats.errors_count);
+        printf("Latency:     %lu ms (Ostatnie narastanie)\n", lm.last_rise_time_ms);
+        printf("Jasnosc:     %d%%\n", logic_get_current_level());
+        printf("-------------------\n");
     }
     else {
         stats.errors_count++;

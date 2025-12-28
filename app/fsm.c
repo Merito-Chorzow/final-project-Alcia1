@@ -86,3 +86,14 @@ void fsm_update(void) {
     // Slew rate
     logic_update();
 }
+
+// Wypisanie nazwy aktualnego stanu.
+const char* fsm_get_state_name(void) {
+    switch (current_state) {
+        case STATE_INIT:  return "INIT";
+        case STATE_IDLE:  return "IDLE";
+        case STATE_RUN:   return "RUN";
+        case STATE_FAULT: return "FAULT";
+        default:          return "UNKNOWN";
+    }
+}

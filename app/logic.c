@@ -4,6 +4,7 @@
 
 static float current_brightness = 0.0f;
 static int target_brightness = 0;
+static logic_metrics_t metrics = {0, 0, 0};
 
 #define BRIGHTNESS_STEP 5.0f 
 
@@ -22,18 +23,32 @@ void logic_set_target(int target) {
 
 // Żeby jasność się zwiększała/zmniejszała płynnie.
 void logic_update(void) {
+    metrics.uptime_cycles++;
+
     float old_val = current_brightness;
 
     if (current_brightness < (float)target_brightness) {
+        if (current_brightness == 0) metrics.start_tick = metrics.uptime_cycles; // Zacznij liczyć latency.
+
         current_brightness += BRIGHTNESS_STEP;
         if (current_brightness > (float)target_brightness) {
             current_brightness = (float)target_brightness;
         }
+
+        if (current_brightness == target_brightness) {
+            metrics.last_rise_time_ms = (metrics.uptime_cycles - metrics.start_tick) * 100; // Skończ liczyć latency (ms).
+        }
     } 
     else if (current_brightness > (float)target_brightness) {
+        if (current_brightness == 100) metrics.start_tick = metrics.uptime_cycles; // Zacznij liczyć latency.
+
         current_brightness -= BRIGHTNESS_STEP;
         if (current_brightness < (float)target_brightness) {
             current_brightness = (float)target_brightness;
+        }
+
+        if (current_brightness == target_brightness) {
+            metrics.last_rise_time_ms = (metrics.uptime_cycles - metrics.start_tick) * 100; // Skończ liczyć latency (ms).
         }
     }
 
@@ -49,7 +64,12 @@ void logic_update(void) {
     }
 }
 
-// Getter.
+// Zwróć aktualny stan jasności.
 int logic_get_current_level(void) {
     return (int)current_brightness;
+}
+
+// Zwróć aktualne metryki działania.
+logic_metrics_t logic_get_metrics(void) {
+    return metrics;
 }
