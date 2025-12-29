@@ -36,5 +36,6 @@ System został zaprojektowany w sposób deterministyczny. Scheduler pracuje z in
 
 - Pobierz repo.
 - Zainstaluj Wokwi Simulator w VS Code.
+- W rozszerzeniu kliknij "request a new wokwi license" i przejdź przez proces zdobywania licencji.
 - Kliknij w plik diagram.json.
 - Kliknij przycisk Start the simulation.
